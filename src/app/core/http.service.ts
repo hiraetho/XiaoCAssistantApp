@@ -49,10 +49,10 @@ export class HttpService {
             .pipe(
                 map((response: any) => {
                     console.log('1111111111response', response);
-                    if (response && response.rtn_cod === '200' && response.result) {
-                        return response.result.text || '文字转换有误，请稍后重试！';
+                    if (response && response.rtn_cod === '200' && response.result && response.result.text) {
+                        return response.result.text;
                     } else {
-                        return '网络问题，请稍后重试！';
+                        throw new Error('');
                     }
                 })
             );

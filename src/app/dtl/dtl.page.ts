@@ -80,7 +80,49 @@ export class DtlPage implements OnInit {
             text: '阿里在我行的结构性存款情况',
         }
     ];
+    allUseingList = [
+        {
+            text: '业务到期',
+        },
+        {
+            text: '结售汇申请',
+        },
+        {
+            text: '法人背后企业',
+        },
+        {
+            text: '付款代理',
+        },
+        {
+            text: 'KYC手册',
+        },
+        {
+            text: '异常报告',
+        },
+        {
+            text: '我的商机',
+        },
+        {
+            text: '新开户企业',
+        },
+        {
+            text: '我的任务',
+        },
+        {
+            text: '查余额',
+        },
+        {
+            text: '客户动态',
+        },
+        {
+            text: '客户大额变动',
+        },
+        {
+            text: '未来收支',
+        },
+    ]
     topQuestionList = [];
+    topUseingList = [];
     allList: any[] = [];
 
     constructor(
@@ -202,11 +244,11 @@ export class DtlPage implements OnInit {
         //     }
         //
         // ];
-        this.topQuestionList = this.getRandomQuestionList();
+        this.topQuestionList = this.getRandomQuestionList(this.allQuestionList);
+        this.topUseingList = this.getRandomQuestionList(this.allUseingList);
     }
 
-    getRandomQuestionList() {
-        let list = this.allQuestionList;
+    getRandomQuestionList(list) {
         let arr = [];
         let indexArr = [];
         for (let i = 0; arr.length < 5; i++) {
@@ -224,23 +266,12 @@ export class DtlPage implements OnInit {
         return Math.floor(Math.random() * (upper - lower)) + lower;
     }
 
+    // 换一换
     changeQuestionList() {
-        this.topQuestionList = this.getRandomQuestionList();
+        this.topQuestionList = this.getRandomQuestionList(this.allQuestionList);
     }
 
     ngOnInit() {
-        // interval(2000).subscribe(() => {
-        //     const item = {
-        //         text: '蛇年大吉可是你看斯诺蛇年大吉可是你看斯诺蛇年大吉可是你看斯诺蛇年大吉可是你看斯诺蛇年大吉可是你看斯诺',
-        //         inputFlag: false,
-        //     };
-        //     this.list.push(item);
-        //     this.content.scrollToBottom().then((res) => {
-        //         console.log('res', res);
-        //     }).catch(() => {
-        //
-        //     })
-        // })
     }
 
     // 开始按压录音
@@ -279,9 +310,6 @@ export class DtlPage implements OnInit {
         this.recorder.stop();
         // 获取 PCM 数据(Blob)
         console.log('this.recorder.getPCMBlob();', this.recorder.getPCMBlob());
-        // setTimeout(() => {
-        //     alert((this.recorder.getPCMBlob() as Blob).size);
-        // })
         this.voiceToText();
     }
 
@@ -296,28 +324,26 @@ export class DtlPage implements OnInit {
         // }
         this.httpService.formRequest(url, this.recorder.getPCMBlob())
             .subscribe((text) => {
-                // console.log('voiceToText', res);
-                this.askQuestion(text);
-            }, () => {
-                this.askQuestion('网络问题，请稍后重试！');
+                this.dealText(text);
+            }, async () => {
+                const toast = await this.toastController.create({
+                    message: '网络问题，请稍后重试！',
+                    duration: 1000,
+                    position: "middle",
+                });
+                toast.present();
             })
-    }
-
-    askQuestion(text) {
-        if (text) {
-            this.dealText(text);
-        }
     }
 
     // 解析文字
     dealText(text) {
-        // const url = 'http://99.15.213.130:8080/text';
-        this.allList.push(
-            {
-                text,
-                inputFlag: true,
-            }
-        );
+        if (!text) {
+            return;
+        }
+        this.addAllList({
+            text,
+            inputFlag: true,
+        });
         const url = 'http://99.15.214.183:8080/text';
         const params = {
             text
@@ -326,7 +352,7 @@ export class DtlPage implements OnInit {
             .pipe(
                 map(res => {
                     if (res && res.rtn_cod === '0' && res.result) {
-                        this.allList.push(res.result);
+                        this.addAllList(res.result);
                     } else {
                         throw new Error('123');
                     }
@@ -334,23 +360,21 @@ export class DtlPage implements OnInit {
             )
             .subscribe((res) => {
                 console.log('dealText', res);
-                this.content.scrollToBottom().then((res) => {
-                    console.log('res', res);
-                }).catch(() => {
-
-                })
             }, (err) => {
-                console.log(err);
-                this.allList.push(    {
+                this.addAllList({
                     type:0,
                     text: '小C还在努力学习，目前还不明白你说的什么，你可以按照下面的方式尝试询问。',
-                    questionList: this.getRandomQuestionList()
+                    questionList: this.getRandomQuestionList(this.allQuestionList)
                 });
-                this.content.scrollToBottom().then((res) => {
-                    console.log('res', res);
-                }).catch(() => {
-
-                })
             })
+    }
+
+    addAllList(obj) {
+        this.allList.push(obj);
+        this.content.scrollToBottom(100).then((res) => {
+            console.log('res', res);
+        }).catch(() => {
+
+        })
     }
 }

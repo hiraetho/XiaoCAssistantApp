@@ -9,11 +9,11 @@
         <div class="recommend">
             <div class="title">
                 <div class="tip"><span>你可以这么问</span></div>
-                <div class="opt" tappable (click)="changeQuestionList()"><span>换一换</span></div>
+                <div class="opt" tappable (click)="changeQuestionList()"><ion-icon class="refresh" name="refresh"></ion-icon><span>换一换</span></div>
             </div>
             <div class="btns exps">
                 <ng-container *ngFor="let item of topQuestionList">
-                    <div tappable (click)="askQuestion(item.text)"><span>{{item?.text}}</span></div>
+                    <div tappable (click)="dealText(item.text)"><ion-icon class="volume-high" name="volume-high"></ion-icon><span>{{item?.text}}</span></div>
                 </ng-container>
             </div>
 <!--            <ng-container *ngTemplateOutlet="exps"></ng-container>-->
@@ -23,12 +23,9 @@
                 <div class="tip"><span>大家都在用</span></div>
             </div>
             <div class="btns comm-use">
-                <div class="btn"><span>工作日志</span></div>
-                <div class="btn"><span>KPI指标</span></div>
-                <div class="btn"><span>有话说</span></div>
-                <div class="btn"><span>有话说</span></div>
-                <div class="btn"><span>有话说</span></div>
-                <div class="btn"><span>有话说</span></div>
+                <ng-container *ngFor="let item of topUseingList">
+                    <div class="btn" tappable (click)="dealText(item.text)"><span>{{item?.text}}</span></div>
+                </ng-container>
             </div>
         </div>
 <!--        <div>-->
@@ -54,7 +51,12 @@
                             <div class="arrow"></div>
                             <p>{{item.text}}</p>
                         </section>
-                        <ng-container *ngTemplateOutlet="exps2; context: item"></ng-container>
+<!--                        <ng-container *ngTemplateOutlet="exps2; context: item"></ng-container>-->
+                        <div class="btns exps">
+                            <ng-container *ngFor="let question of item.questionList">
+                                <div tappable (click)="dealText(question.text)"><ion-icon class="volume-high" name="volume-high"></ion-icon><span>{{question?.text}}</span></div>
+                            </ng-container>
+                        </div>
                     </ng-container>
                     <ng-container *ngSwitchCase="1">
                         <div class="list-info" *ngFor="let fct of item?.fct_list">
@@ -126,16 +128,16 @@
 <!--<ng-template #exps let-list="list">-->
 <!--    <div class="btns exps">-->
 <!--        <ng-container *ngFor="let item of topQuestionList">-->
-<!--            <div tappable (click)="askQuestion(item.text)"><span>{{item?.text}}</span></div>-->
+<!--            <div tappable (click)="dealText(item.text)"><span>{{item?.text}}</span></div>-->
 <!--        </ng-container>-->
 <!--    </div>-->
 <!--</ng-template>-->
-<ng-template #exps2 let-questionList="questionList">
-    <div class="btns exps">
-        <ng-container *ngFor="let item of questionList">
-            <div tappable (click)="changeQuestionList()"><span>{{item?.text}}</span></div>
-        </ng-container>
-    </div>
-</ng-template>
+<!--<ng-template #exps2 let-questionList="questionList">-->
+<!--    <div class="btns exps">-->
+<!--        <ng-container *ngFor="let item of questionList">-->
+<!--            <div tappable (click)="changeQuestionList()"><span>{{item?.text}}</span></div>-->
+<!--        </ng-container>-->
+<!--    </div>-->
+<!--</ng-template>-->
 
 

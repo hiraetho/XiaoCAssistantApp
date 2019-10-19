@@ -24,7 +24,10 @@ $arrow-dis: -8px;
         font-weight: bold;
       }
       .opt {
-
+        .refresh {
+          position: relative;
+          top: 2px;
+        }
       }
     }
   }
@@ -120,6 +123,7 @@ $arrow-dis: -8px;
         width: 30px;
         height: 30px;
         display: block;
+        pointer-events: none;
       }
     }
   }
@@ -139,6 +143,10 @@ $arrow-dis: -8px;
   > div {
     color: $color-FFF;
     background-color: $color-FF6666;
+    .volume-high {
+      position: relative;
+      top: 2px;
+    }
   }
 }
 .comm-use {
