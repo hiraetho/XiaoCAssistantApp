@@ -9,16 +9,14 @@
         <div class="recommend">
             <div class="title">
                 <div class="tip"><span>你可以这么问</span></div>
-                <div class="opt"><span>换一换</span></div>
+                <div class="opt" tappable (click)="changeQuestionList()"><span>换一换</span></div>
             </div>
             <div class="btns exps">
-                <div><span>今日客户动态今日客户动态</span></div>
-                <div><span>今日动态</span></div>
-                <div><span>今日客户动态</span></div>
-                <div><span>今日客动态</span></div>
-                <div><span>今日客户动态今日客户动态今日客户动态今日客户动态</span></div>
-                <div><span>今日客户动态</span></div>
+                <ng-container *ngFor="let item of topQuestionList">
+                    <div tappable (click)="askQuestion(item.text)"><span>{{item?.text}}</span></div>
+                </ng-container>
             </div>
+<!--            <ng-container *ngTemplateOutlet="exps"></ng-container>-->
         </div>
         <div class="recommend">
             <div class="title">
@@ -37,13 +35,73 @@
 <!--            <ion-button (click)="onPress($event)">start</ion-button>-->
 <!--            <ion-button (click)="onPressUp($event)">stop</ion-button>-->
 <!--        </div>-->
-        <ng-container *ngFor="let item of list">
-            <div class="container" [ngClass]="{right: item.inputFlag, left: !item.inputFlag}">
-                <section class="text-area">
-                    <div class="arrow"></div>
-                    <p>{{item.text}}</p>
-                </section>
-            </div>
+        <ng-container *ngFor="let item of allList">
+<!--            右侧语音输入-->
+            <ng-container *ngIf="item.inputFlag">
+<!--                <div class="container" [ngClass]="{right: item.inputFlag, left: !item.inputFlag}">-->
+                <div class="container right">
+                    <section class="text-area">
+                        <div class="arrow"></div>
+                        <p>{{item.text}}</p>
+                    </section>
+                </div>
+            </ng-container>
+<!--            左侧返回内容-->
+            <ng-container *ngIf="!item.inputFlag">
+                <div class="container left" [ngSwitch]="item.type">
+                    <ng-container *ngSwitchCase="0">
+                        <section class="text-area">
+                            <div class="arrow"></div>
+                            <p>{{item.text}}</p>
+                        </section>
+                        <ng-container *ngTemplateOutlet="exps2; context: item"></ng-container>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="1">
+                        <div class="list-info" *ngFor="let fct of item?.fct_list">
+                            <div><span>{{fct?.fct_nm}}</span></div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="2">
+                        <div class="list-info" *ngFor="let fct of item?.bus_list">
+                            <div>
+                                <span>{{fct?.cust_nm}}</span>
+                                <span>{{fct?.due_time}}</span>
+                                <span>{{fct?.bus_nm}}</span>
+                                <span>{{fct?.money}}</span>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="3">
+                        <div class="list-info">
+                            <div>
+                                <div>客户名称：{{item?.cust_nm}}</div>
+                                <div>存款：{{item?.dps}}</div>
+                                <div>贷款：{{item?.loan}}</div>
+                                <div>结构性存款：{{item?.struct_dps}}</div>
+                                <div>{{item?.financial}}</div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="4">
+                        <div class="list-info">
+                            <div>
+                                <div>客户名称：{{item?.cust_nm}}</div>
+                                <div>{{item?.inf_nm}}：{{item?.dps}}</div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="5">
+                        <div class="list-info" *ngFor="let fct of item?.bus_list">
+                            <div>
+                                <span>{{fct?.cust_nm}}</span>
+                                <span>{{fct?.due_time}}</span>
+                                <span>{{fct?.bus_nm}}</span>
+                                <span>{{fct?.money}}</span>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </ng-container>
         </ng-container>
     </div>
 </ion-content>
@@ -58,5 +116,26 @@
         </div>
     </div>
 </ion-footer>
+
+<!--<ng-template #textArea>-->
+<!--    <section class="text-area">-->
+<!--        <div class="arrow"></div>-->
+<!--        <p>{{item.text}}</p>-->
+<!--    </section>-->
+<!--</ng-template>-->
+<!--<ng-template #exps let-list="list">-->
+<!--    <div class="btns exps">-->
+<!--        <ng-container *ngFor="let item of topQuestionList">-->
+<!--            <div tappable (click)="askQuestion(item.text)"><span>{{item?.text}}</span></div>-->
+<!--        </ng-container>-->
+<!--    </div>-->
+<!--</ng-template>-->
+<ng-template #exps2 let-questionList="questionList">
+    <div class="btns exps">
+        <ng-container *ngFor="let item of questionList">
+            <div><span>{{item?.text}}</span></div>
+        </ng-container>
+    </div>
+</ng-template>
 
 
