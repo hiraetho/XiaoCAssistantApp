@@ -1,9 +1,62 @@
 <ion-header>
-  <ion-toolbar >
+  <ion-toolbar>
     <ion-title>小C助手</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-test
+<ion-content #content>
+    <div class="content-container">
+        <div class="recommend">
+            <div class="title">
+                <div class="tip"><span>你可以这么问</span></div>
+                <div class="opt"><span>换一换</span></div>
+            </div>
+            <div class="btns exps">
+                <div><span>今日客户动态今日客户动态</span></div>
+                <div><span>今日动态</span></div>
+                <div><span>今日客户动态</span></div>
+                <div><span>今日客动态</span></div>
+                <div><span>今日客户动态今日客户动态今日客户动态今日客户动态</span></div>
+                <div><span>今日客户动态</span></div>
+            </div>
+        </div>
+        <div class="recommend">
+            <div class="title">
+                <div class="tip"><span>大家都在用</span></div>
+            </div>
+            <div class="btns comm-use">
+                <div class="btn"><span>工作日志</span></div>
+                <div class="btn"><span>KPI指标</span></div>
+                <div class="btn"><span>有话说</span></div>
+                <div class="btn"><span>有话说</span></div>
+                <div class="btn"><span>有话说</span></div>
+                <div class="btn"><span>有话说</span></div>
+            </div>
+        </div>
+<!--        <div>-->
+<!--            <ion-button (click)="onPress($event)">start</ion-button>-->
+<!--            <ion-button (click)="onPressUp($event)">stop</ion-button>-->
+<!--        </div>-->
+        <ng-container *ngFor="let item of list">
+            <div class="container" [ngClass]="{right: item.inputFlag, left: !item.inputFlag}">
+                <section class="text-area">
+                    <div class="arrow"></div>
+                    <p>{{item.text}}</p>
+                </section>
+            </div>
+        </ng-container>
+    </div>
 </ion-content>
+
+<ion-footer>
+    <div class="footer">
+        <div class="tip"><span>长按说话</span></div>
+        <div class="voice">
+            <div class="press-area" (press)="onPress($event)" (pressup)="onPressUp($event)">
+                <img src="../../assets/images/voice.png" alt="">
+            </div>
+        </div>
+    </div>
+</ion-footer>
+
+

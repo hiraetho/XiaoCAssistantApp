@@ -1,0 +1,141 @@
+$color-FF6666: #FF6666;
+$color-66A2FF: #66A2FF;
+$color-FFF: #FFF;
+$color-CCC: #CCC;
+$color-333: #333;
+$arrow-dis: -8px;
+//::ng-deep ion-content {
+//  background-color: blue;
+//}
+//::ng-deep .inner-scroll {
+//  background-color: blue;
+//}
+
+.content-container {
+  margin: 12px 12px 0;
+  font-size: 14px;
+  color: $color-333;
+  .recommend {
+    .title {
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      .tip {
+        font-size: 18px;
+        font-weight: bold;
+      }
+      .opt {
+
+      }
+    }
+    .btns {
+      display: flex;
+      flex-wrap: wrap;
+      > div {
+
+        margin: 6px 8px;
+        padding: 4px 6px;
+        border-radius: 4px;
+      }
+    }
+    .exps {
+      > div {
+        color: $color-FFF;
+        background-color: $color-FF6666;
+      }
+    }
+    .comm-use {
+      padding-bottom: 10px;
+      border-bottom: 1px $color-CCC dashed;
+      > div {
+        color: $color-66A2FF;
+        background-color: $color-FFF;
+        border: 1px solid $color-66A2FF;
+      }
+    }
+  }
+  .container {
+    margin: 12px 0;
+    display: flex;
+    .text-area {
+      max-width: 80vw;
+      padding: 6px;
+      border-radius: 6px;
+      position: relative;
+      box-shadow: 0 0 8px #ccc;
+      .arrow {
+        width: 0;
+        height: 0;
+        border-width: 0 6px 4px 6px;
+        border-style: solid;
+        position: absolute;
+        z-index: 100;
+        top: 14px;
+        //box-shadow: 0 0 8px #ccc;
+      }
+    }
+  }
+  .container.left {
+    justify-content: flex-start;
+    .text-area {
+      background-color: $color-FFF;
+      //float: left;
+      justify-content: flex-start;
+      color: $color-333;
+      .arrow {
+        border-color: transparent transparent $color-FFF;
+        transform:rotate(-90deg);
+        left: $arrow-dis;
+      }
+    }
+  }
+  .container.right {
+    justify-content: flex-end;
+    .text-area {
+      background-color: $color-FF6666;
+      //float: right;
+      justify-content: flex-end;
+      color: $color-FFF;
+      .arrow {
+        border-color: transparent transparent $color-FF6666;
+        transform:rotate(90deg);
+        right: $arrow-dis;
+      }
+    }
+  }
+}
+
+.footer {
+  height: 100px;
+  background-color: $color-FFF;
+  color: $color-FF6666;
+  font-size: 14px;
+  > .tip {
+    text-align: center;
+    padding: 4px 0;
+  }
+  > .voice {
+    display: flex;
+    justify-content: center;
+    .press-area {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: $color-FF6666;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img {
+        width: 30px;
+        height: 30px;
+        display: block;
+      }
+    }
+  }
+}
+
+
+
+
+
+
