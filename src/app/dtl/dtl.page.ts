@@ -4,6 +4,7 @@ import {IonContent, ToastController} from "@ionic/angular";
 
 import Recorder from 'js-audio-recorder';
 import {HttpService} from "../core/http.service";
+import {map} from "rxjs/operators";
 
 export interface itemConfig {
     text: string,
@@ -86,121 +87,121 @@ export class DtlPage implements OnInit {
         private toastController: ToastController,
         private httpService: HttpService,
     ) {
-        this.allList = [
-            {
-                text: '随便说type0',
-                inputFlag: true,
-            },
-            // type=0,没有命中，提示：小C还在努力学习，目前还不明白你说的什么，你可以按照下面的方式尝试询问。
-            {
-                type:0,
-                text: '小C还在努力学习，目前还不明白你说的什么，你可以按照下面的方式尝试询问。',
-                questionList: this.getRandomQuestionList()
-            },
-            // type=0,没有命中，提示：小C还在努力学习，目前还不明白你说的什么，你可以按照下面的方式尝试询问。
-            {
-                type:0,
-                text: '小C还在努力学习，目前还不明白你说的什么，你可以按照下面的方式尝试询问。',
-                questionList: this.getRandomQuestionList()
-            },
-            {
-                text: '随便说type1',
-                inputFlag: true,
-            },
-            // type=1,当命中多个功能或者只有一个非业务列表功能的时候返回功能列表和跳转地址
-            {
-                type:1,
-                fct_list:
-                    [
-                        {
-                            fct_nm:"查产品",
-                            fct_url:"跳转地址"
-                        },
-                        {
-                            fct_nm:"查产品",
-                            fct_url:"跳转地址"
-                        }
-                    ]
-            },
-            {
-                text: '随便说type2',
-                inputFlag: true,
-            },
-            // type=2,当命中某个具体业务功能的时候返回业务功能包含的业务列表
-            {
-                type:2,
-                bus_type: 'Business_expiration',
-                bus_list:
-                    [
-                        {
-                            cust_nm:"百度",
-                            due_time:"20191022",
-                            money:"200.9",
-                            bus_nm:"对公理财"
-
-                        },
-                        {
-                            cust_nm:"招银网络科技",
-                            due_time:"20230422",
-                            money:"898572",
-                            bus_nm:"协定存款"
-
-                        }
-                    ]
-            },
-            {
-                text: '随便说type3',
-                inputFlag: true,
-            },
-            // type=3,当只有一个企业的时候
-            {
-                type:3,
-                cust_nm:"百度",
-                dps:"13023413",
-                struct_dps:"7673",
-                loan:"3426",
-                financial:"7643"
-            },
-            {
-                text: '随便说type4',
-                inputFlag: true,
-            },
-            // type=4命中企业和指标
-            {
-                type:4,
-                cust_nm:"百度",
-                inf_nm:"一般性存款",
-                dps:"13023413"
-            },
-            {
-                text: '随便说type5',
-                inputFlag: true,
-            },
-            // type=5命中企业和业务功能，返回业务列表
-            {
-                type:5,
-                cust_nm:"招银网络科技",
-                bus_nm:"业务到期",
-                bus_type:"Business_expiration",
-                bus_list:
-                    [
-                        {
-                            cust_nm:"招银网络科技",
-                            due_time:"20230422",
-                            money:"898572",
-                            bus_nm:"协定存款"
-                        },
-                        {
-                            cust_nm:"招银网络科技",
-                            due_time:"20220518",
-                            money:"123141414",
-                            bus_nm:"定期存款"
-                        }
-
-                    ]
-            }
-
-        ];
+        // this.allList = [
+        //     {
+        //         text: '随便说type0',
+        //         inputFlag: true,
+        //     },
+        //     // type=0,没有命中，提示：小C还在努力学习，目前还不明白你说的什么，你可以按照下面的方式尝试询问。
+        //     {
+        //         type:0,
+        //         text: '小C还在努力学习，目前还不明白你说的什么，你可以按照下面的方式尝试询问。',
+        //         questionList: this.getRandomQuestionList()
+        //     },
+        //     // type=0,没有命中，提示：小C还在努力学习，目前还不明白你说的什么，你可以按照下面的方式尝试询问。
+        //     {
+        //         type:0,
+        //         text: '小C还在努力学习，目前还不明白你说的什么，你可以按照下面的方式尝试询问。',
+        //         questionList: this.getRandomQuestionList()
+        //     },
+        //     {
+        //         text: '随便说type1',
+        //         inputFlag: true,
+        //     },
+        //     // type=1,当命中多个功能或者只有一个非业务列表功能的时候返回功能列表和跳转地址
+        //     {
+        //         type:1,
+        //         fct_list:
+        //             [
+        //                 {
+        //                     fct_nm:"查产品",
+        //                     fct_url:"跳转地址"
+        //                 },
+        //                 {
+        //                     fct_nm:"查产品",
+        //                     fct_url:"跳转地址"
+        //                 }
+        //             ]
+        //     },
+        //     {
+        //         text: '随便说type2',
+        //         inputFlag: true,
+        //     },
+        //     // type=2,当命中某个具体业务功能的时候返回业务功能包含的业务列表
+        //     {
+        //         type:2,
+        //         bus_type: 'Business_expiration',
+        //         bus_list:
+        //             [
+        //                 {
+        //                     cust_nm:"百度",
+        //                     due_time:"20191022",
+        //                     money:"200.9",
+        //                     bus_nm:"对公理财"
+        //
+        //                 },
+        //                 {
+        //                     cust_nm:"招银网络科技",
+        //                     due_time:"20230422",
+        //                     money:"898572",
+        //                     bus_nm:"协定存款"
+        //
+        //                 }
+        //             ]
+        //     },
+        //     {
+        //         text: '随便说type3',
+        //         inputFlag: true,
+        //     },
+        //     // type=3,当只有一个企业的时候
+        //     {
+        //         type:3,
+        //         cust_nm:"百度",
+        //         dps:"13023413",
+        //         struct_dps:"7673",
+        //         loan:"3426",
+        //         financial:"7643"
+        //     },
+        //     {
+        //         text: '随便说type4',
+        //         inputFlag: true,
+        //     },
+        //     // type=4命中企业和指标
+        //     {
+        //         type:4,
+        //         cust_nm:"百度",
+        //         inf_nm:"一般性存款",
+        //         dps:"13023413"
+        //     },
+        //     {
+        //         text: '随便说type5',
+        //         inputFlag: true,
+        //     },
+        //     // type=5命中企业和业务功能，返回业务列表
+        //     {
+        //         type:5,
+        //         cust_nm:"招银网络科技",
+        //         bus_nm:"业务到期",
+        //         bus_type:"Business_expiration",
+        //         bus_list:
+        //             [
+        //                 {
+        //                     cust_nm:"招银网络科技",
+        //                     due_time:"20230422",
+        //                     money:"898572",
+        //                     bus_nm:"协定存款"
+        //                 },
+        //                 {
+        //                     cust_nm:"招银网络科技",
+        //                     due_time:"20220518",
+        //                     money:"123141414",
+        //                     bus_nm:"定期存款"
+        //                 }
+        //
+        //             ]
+        //     }
+        //
+        // ];
         this.topQuestionList = this.getRandomQuestionList();
     }
 
@@ -287,15 +288,18 @@ export class DtlPage implements OnInit {
     // 语音转文字
     voiceToText() {
         // const url = 'http://99.15.213.130:8080/uploadVoice';
-        const url = 'http://99.15.214.183:8080/uploadVoice';
-        // const url = 'http://99.15.215.14:8080/';
-        const params = {
-            file: this.recorder.getPCMBlob()
-        }
-        this.httpService.sendRequest2(url, this.recorder.getPCMBlob())
-            .subscribe((res) => {
-                console.log('voiceToText', res);
-                // this.askQuestion(res.text);
+        // const url = 'http://99.15.214.183:8080/uploadVoice';
+        const url = 'http://99.15.214.7:8080/uploadVoice';
+        // const url = 'http://99.15.215.14:8080/url';
+        // const params = {
+        //     file: this.recorder.getPCMBlob()
+        // }
+        this.httpService.formRequest(url, this.recorder.getPCMBlob())
+            .subscribe((text) => {
+                // console.log('voiceToText', res);
+                this.askQuestion(text);
+            }, () => {
+                this.askQuestion('网络问题，请稍后重试！');
             })
     }
 
@@ -305,15 +309,48 @@ export class DtlPage implements OnInit {
         }
     }
 
+    // 解析文字
     dealText(text) {
         // const url = 'http://99.15.213.130:8080/text';
+        this.allList.push(
+            {
+                text,
+                inputFlag: true,
+            }
+        );
         const url = 'http://99.15.214.183:8080/text';
         const params = {
             text
         }
         this.httpService.sendRequest(url, params)
+            .pipe(
+                map(res => {
+                    if (res && res.rtn_cod === '0' && res.result) {
+                        this.allList.push(res.result);
+                    } else {
+                        throw new Error('123');
+                    }
+                })
+            )
             .subscribe((res) => {
                 console.log('dealText', res);
+                this.content.scrollToBottom().then((res) => {
+                    console.log('res', res);
+                }).catch(() => {
+
+                })
+            }, (err) => {
+                console.log(err);
+                this.allList.push(    {
+                    type:0,
+                    text: '小C还在努力学习，目前还不明白你说的什么，你可以按照下面的方式尝试询问。',
+                    questionList: this.getRandomQuestionList()
+                });
+                this.content.scrollToBottom().then((res) => {
+                    console.log('res', res);
+                }).catch(() => {
+
+                })
             })
     }
 }

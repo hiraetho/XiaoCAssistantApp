@@ -133,7 +133,7 @@
 <ng-template #exps2 let-questionList="questionList">
     <div class="btns exps">
         <ng-container *ngFor="let item of questionList">
-            <div><span>{{item?.text}}</span></div>
+            <div tappable (click)="changeQuestionList()"><span>{{item?.text}}</span></div>
         </ng-container>
     </div>
 </ng-template>

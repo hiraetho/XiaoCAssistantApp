@@ -30,7 +30,7 @@ export class HttpService {
           );
   }
 
-    sendRequest2(url: string, params): Observable<any> {
+    formRequest(url: string, params): Observable<any> {
         // let headers = new HttpHeaders();
         // headers.set('Content-Type', 'application/json');
         // let headers = new HttpHeaders({
@@ -49,7 +49,11 @@ export class HttpService {
             .pipe(
                 map((response: any) => {
                     console.log('1111111111response', response);
-                    return response;
+                    if (response && response.rtn_cod === '200' && response.result) {
+                        return response.result.text || '文字转换有误，请稍后重试！';
+                    } else {
+                        return '网络问题，请稍后重试！';
+                    }
                 })
             );
     }
