@@ -76,20 +76,20 @@
                             </div>
                         </ng-container>
                         <ng-container *ngIf="item.bus_type === 'opportunities'">
+                            <div>为您找到以下商机:</div>
                             <div class="list-info" *ngFor="let fct of item?.bus_list">
-                                <div>为您找到以下商机:</div>
                                 <div>{{fct?.cust_nm}} {{fct?.bus_nm}}</div>
                             </div>
                         </ng-container>
                         <ng-container *ngIf="item.bus_type === 'new_regist'">
+                            <div>新注册企业</div>
                             <div class="list-info" *ngFor="let fct of item?.bus_list">
-                                <div>新注册企业</div>
                                 <div>{{fct?.cust_nm}}</div>
                             </div>
                         </ng-container>
                         <ng-container *ngIf="item.bus_type === 'task'">
+                            <div>为您找到以下任务:</div>
                             <div class="list-info" *ngFor="let fct of item?.bus_list">
-                                <div>为您找到以下任务:</div>
                                 <div>{{fct?.cust_nm}} {{fct?.bus_nm}}</div>
                             </div>
                         </ng-container>
@@ -120,8 +120,8 @@
                             </div>
                         </ng-container>
                         <ng-container *ngIf="item.bus_type === 'opportunities'">
+                            <div>为您找到以下商机:</div>
                             <div class="list-info" *ngFor="let fct of item?.bus_list">
-                                <div>为您找到以下商机:</div>
                                 <div>{{fct?.bus_nm}}</div>
                             </div>
                         </ng-container>
@@ -130,8 +130,8 @@
                         <!--                                <div>{{fct?.cust_nm}}</div>-->
                         <!--                            </ng-container>-->
                         <ng-container *ngIf="item.bus_type === 'task'">
+                            <div>为您找到以下任务:</div>
                             <div class="list-info" *ngFor="let fct of item?.bus_list">
-                                <div>为您找到以下任务:</div>
                                 <div>{{fct?.bus_nm}}</div>
                             </div>
                         </ng-container>

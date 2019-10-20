@@ -44,9 +44,9 @@ export class DtlPage implements OnInit {
         {
             text: '大华',
         },
-        {
-            text: '我管户企业理财情况',
-        },
+        // {
+        //     text: '我管户企业理财情况',
+        // },
         {
             text: '存款',
         },
@@ -56,9 +56,9 @@ export class DtlPage implements OnInit {
         {
             text: '海康在我行的贷款',
         },
-        {
-            text: '我管户企业的到期业务',
-        },
+        // {
+        //     text: '我管户企业的到期业务',
+        // },
         {
             text: '招银网络科技到期业务',
         },
