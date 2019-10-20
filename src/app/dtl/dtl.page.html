@@ -60,46 +60,66 @@
                     </ng-container>
                     <ng-container *ngSwitchCase="1">
                         <div class="list-info" *ngFor="let fct of item?.fct_list">
-                            <div><span>{{fct?.fct_nm}}</span></div>
+                            <div><ion-icon [name]="fct.iconNm || 'stat'"></ion-icon><span>{{fct?.fct_nm}}</span></div>
+<!--                            <div><ion-icon class="refresh" name="refresh"></ion-icon><span>{{fct?.fct_nm}}</span></div>-->
                         </div>
                     </ng-container>
                     <ng-container *ngSwitchCase="2">
                         <div class="list-info" *ngFor="let fct of item?.bus_list">
-                            <div>
-                                <span>{{fct?.cust_nm}}</span>
-                                <span>{{fct?.due_time}}</span>
-                                <span>{{fct?.bus_nm}}</span>
-                                <span>{{fct?.money}}</span>
-                            </div>
+                            <ng-container *ngIf="item.bus_type === 'Business_expiration'">
+                                <div>{{fct?.cust_nm}}有{{fct?.money}}的{{fct?.bus_nm}}在{{fct?.due_time}}到期</div>
+                            </ng-container>
+                            <ng-container *ngIf="item.bus_type === 'Future_bills'">
+                                <div>{{fct?.cust_nm}}在{{fct?.due_time}}有{{fct?.money}}的人行电票承兑</div>
+                            </ng-container>
+                            <ng-container *ngIf="item.bus_type === 'opportunities'">
+                                <div>为您找到以下商机</div>
+                                <div>{{fct?.cust_nm}} {{fct?.bus_nm}}</div>
+                            </ng-container>
+                            <ng-container *ngIf="item.bus_type === 'new_regist'">
+                                <div>新注册企业</div>
+                                <div>{{fct?.cust_nm}}</div>
+                            </ng-container>
+                            <ng-container *ngIf="item.bus_type === 'task'">
+                                <div>为您找到以下任务</div>
+                                <div>{{fct?.cust_nm}} {{fct?.bus_nm}}</div>
+                            </ng-container>
                         </div>
                     </ng-container>
                     <ng-container *ngSwitchCase="3">
                         <div class="list-info">
                             <div>
-                                <div>客户名称：{{item?.cust_nm}}</div>
-                                <div>存款：{{item?.dps}}</div>
-                                <div>贷款：{{item?.loan}}</div>
-                                <div>结构性存款：{{item?.struct_dps}}</div>
-                                <div>{{item?.financial}}</div>
+                                <span>{{item?.cust_nm}}在我行一般性存款{{item?.dps}}，结构性存款{{item?.struct_dps}},一般性贷款{{item?.loan}},对公理财{{item?.financial}}</span>
                             </div>
                         </div>
                     </ng-container>
                     <ng-container *ngSwitchCase="4">
                         <div class="list-info">
                             <div>
-                                <div>客户名称：{{item?.cust_nm}}</div>
-                                <div>{{item?.inf_nm}}：{{item?.dps}}</div>
+                                <div>{{item?.cust_nm}}在我行{{item?.inf_nm}}{{item?.value}}</div>
                             </div>
                         </div>
                     </ng-container>
                     <ng-container *ngSwitchCase="5">
                         <div class="list-info" *ngFor="let fct of item?.bus_list">
-                            <div>
-                                <span>{{fct?.cust_nm}}</span>
-                                <span>{{fct?.due_time}}</span>
-                                <span>{{fct?.bus_nm}}</span>
-                                <span>{{fct?.money}}</span>
-                            </div>
+                            <ng-container *ngIf="item.bus_type === 'Business_expiration'">
+                                <div>该公司有{{fct?.money}}的{{fct?.bus_nm}}在{{fct?.due_time}}到期</div>
+                            </ng-container>
+                            <ng-container *ngIf="item.bus_type === 'Future_bills'">
+                                <div>该公司在{{fct?.due_time}}有{{fct?.money}}的人行电票承兑</div>
+                            </ng-container>
+                            <ng-container *ngIf="item.bus_type === 'opportunities'">
+                                <div>为您找到以下商机</div>
+                                <div>{{fct?.bus_nm}}</div>
+                            </ng-container>
+<!--                            <ng-container *ngIf="item.bus_type === 'new_regist'">-->
+<!--                                <div>新注册企业</div>-->
+<!--                                <div>{{fct?.cust_nm}}</div>-->
+<!--                            </ng-container>-->
+                            <ng-container *ngIf="item.bus_type === 'task'">
+                                <div>为您找到以下任务</div>
+                                <div>{{fct?.bus_nm}}</div>
+                            </ng-container>
                         </div>
                     </ng-container>
                 </div>

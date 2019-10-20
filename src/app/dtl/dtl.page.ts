@@ -74,7 +74,7 @@ export class DtlPage implements OnInit {
             text: '我要帮客户办理付款代理',
         },
         {
-            text: '目前有那些商机',
+            text: '目前有哪些商机',
         },
         {
             text: '阿里在我行的结构性存款情况',
@@ -138,13 +138,13 @@ export class DtlPage implements OnInit {
         //     {
         //         type:0,
         //         text: '小C还在努力学习，目前还不明白你说的什么，你可以按照下面的方式尝试询问。',
-        //         questionList: this.getRandomQuestionList()
+        //         questionList: this.getRandomQuestionList(this.allQuestionList)
         //     },
         //     // type=0,没有命中，提示：小C还在努力学习，目前还不明白你说的什么，你可以按照下面的方式尝试询问。
         //     {
         //         type:0,
         //         text: '小C还在努力学习，目前还不明白你说的什么，你可以按照下面的方式尝试询问。',
-        //         questionList: this.getRandomQuestionList()
+        //         questionList: this.getRandomQuestionList(this.allQuestionList)
         //     },
         //     {
         //         text: '随便说type1',
@@ -213,7 +213,7 @@ export class DtlPage implements OnInit {
         //         type:4,
         //         cust_nm:"百度",
         //         inf_nm:"一般性存款",
-        //         dps:"13023413"
+        //         value:"13023413"
         //     },
         //     {
         //         text: '随便说type5',
@@ -344,17 +344,44 @@ export class DtlPage implements OnInit {
             text,
             inputFlag: true,
         });
-        const url = 'http://99.15.214.183:8080/text';
+        // const url = 'http://99.15.214.183:8080/text';
+        const url = 'http://99.15.214.7:8080/text';
         const params = {
             text
         }
         this.httpService.sendRequest(url, params)
             .pipe(
                 map(res => {
-                    if (res && res.rtn_cod === '0' && res.result) {
+                    console.log('text-res', res);
+                    if (res && res.rtn_cod === '200' && res.result) {
+                        if (res.result.type === 1) {
+                            // const imgSrcArr = [
+                            //     '../assets/images/cust.png',
+                            //     '../assets/images/dyna.png',
+                            //     '../assets/images/news.png',
+                            //     '../assets/images/prod.png',
+                            //     '../assets/images/rank.png',
+                            //     '../assets/images/analysis.png',
+                            // ];
+                            const icons = [
+                                'logo-buffer',
+                                'logo-codepen',
+                                'logo-flickr',
+                                'paper',
+                                'photos',
+                                'list-box',
+                                'stats'
+                            ]
+                            for (let i = 0; i < res.result.fct_list.length; i++) {
+                                // res.result.fct_list[i].imgSrc = res.result.fct_list.length[res.result.fct_list.length % imgSrcArr.length - 1];
+                                res.result.fct_list[i].iconNm = icons[(res.result.fct_list.length % icons.length) - 1];
+                                console.log('icons[(res.result.fct_list.length % icons.length) - 1]', icons[(res.result.fct_list.length % icons.length) - 1])
+                            }
+                        }
+                        console.log('res.result', res.result);
                         this.addAllList(res.result);
                     } else {
-                        throw new Error('123');
+                        throw new Error('');
                     }
                 })
             )
