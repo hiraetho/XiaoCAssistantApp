@@ -143,10 +143,6 @@ $arrow-dis: -8px;
   > div {
     color: $color-FFF;
     background-color: $color-FF6666;
-    .volume-high {
-      position: relative;
-      top: 2px;
-    }
   }
 }
 .comm-use {
@@ -157,6 +153,11 @@ $arrow-dis: -8px;
     background-color: $color-FFF;
     border: 1px solid $color-66A2FF;
   }
+}
+
+.volume-high {
+  position: relative;
+  top: 2px;
 }
 
 

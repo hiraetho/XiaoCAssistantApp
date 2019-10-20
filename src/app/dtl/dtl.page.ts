@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {interval} from "rxjs";
-import {IonContent, ToastController} from "@ionic/angular";
+import {IonContent, NavController, ToastController} from "@ionic/angular";
 
 import Recorder from 'js-audio-recorder';
 import {HttpService} from "../core/http.service";
@@ -44,9 +44,6 @@ export class DtlPage implements OnInit {
             text: '大华',
         },
         {
-            text: '我想查法人背后企业',
-        },
-        {
             text: '我管护企业理财情况',
         },
         {
@@ -59,7 +56,7 @@ export class DtlPage implements OnInit {
             text: '海康在我行的贷款',
         },
         {
-            text: '我管护企业的到期业务',
+            text: '我管户企业的到期业务',
         },
         {
             text: '招银网络科技到期业务',
@@ -128,6 +125,7 @@ export class DtlPage implements OnInit {
     constructor(
         private toastController: ToastController,
         private httpService: HttpService,
+        private nav: NavController
     ) {
         // this.allList = [
         //     {
@@ -403,5 +401,9 @@ export class DtlPage implements OnInit {
         }).catch(() => {
 
         })
+    }
+
+    goTo(text) {
+        return;
     }
 }
