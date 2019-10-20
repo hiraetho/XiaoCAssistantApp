@@ -250,7 +250,7 @@ export class DtlPage implements OnInit {
     getRandomQuestionList(list) {
         let arr = [];
         let indexArr = [];
-        for (let i = 0; arr.length < 10; i++) {
+        for (let i = 0; arr.length < 5; i++) {
             const random = this.random(0, list.length);
             if (!indexArr.includes(random)) {
                 arr.push(list[random]);
