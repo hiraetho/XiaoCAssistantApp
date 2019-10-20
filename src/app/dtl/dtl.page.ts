@@ -47,9 +47,9 @@ export class DtlPage implements OnInit {
         // {
         //     text: '我管户企业理财情况',
         // },
-        {
-            text: '存款',
-        },
+        // {
+        //     text: '存款',
+        // },
         {
             text: '百度在我行的存款',
         },
