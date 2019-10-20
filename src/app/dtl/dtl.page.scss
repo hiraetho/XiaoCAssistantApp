@@ -15,6 +15,12 @@ $arrow-dis: -8px;
   margin: 12px 12px 0;
   font-size: 14px;
   color: $color-333;
+  position: relative;
+  .svg {
+    position: absolute;
+    top: 70%;
+    left: calc(50% - 82px);
+  }
   .recommend {
     .title {
       display: flex;
