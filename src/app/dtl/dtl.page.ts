@@ -276,12 +276,12 @@ export class DtlPage implements OnInit {
     // 开始按压录音
     async onPress($event) {
         console.log("onPress11", $event);
-        // const toast = await this.toastController.create({
-        //     message: '开始录音',
-        //     duration: 1000,
-        //     position: "top",
-        // });
-        // toast.present();
+        const toast = await this.toastController.create({
+            message: '开始录音',
+            duration: 1000,
+            position: "top",
+        });
+        toast.present();
         this.recorder = new Recorder({
             sampleBits: 16,         // 采样位数，支持 8 或 16，默认是16
             sampleRate: 16000,      // 采样率，支持 11025、16000、22050、24000、44100、48000，根据浏览器默认值，我的chrome是48000
@@ -302,12 +302,12 @@ export class DtlPage implements OnInit {
     // 结束按压录音
     async onPressUp($event) {
         console.log("onPressUp22", $event);
-        // const toast = await this.toastController.create({
-        //     message: '结束录音',
-        //     duration: 1000,
-        //     position: "top",
-        // });
-        // toast.present();
+        const toast = await this.toastController.create({
+            message: '结束录音',
+            duration: 1000,
+            position: "top",
+        });
+        toast.present();
         this.recorder.stop();
         this.showSvg = false;
         // 获取 PCM 数据(Blob)
